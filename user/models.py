@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'users'
         
         
-class WatchList(models.Model):
+class WatchListView(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.CharField(max_length=100)
     
@@ -63,7 +63,7 @@ class WatchList(models.Model):
         verbose_name = 'watchlist'
         verbose_name_plural = 'watchlists'
 
-class History(models.Model):
+class HistoryView(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     movie = models.CharField(max_length=100)
     
@@ -71,3 +71,13 @@ class History(models.Model):
         db_table = 'history'
         verbose_name = 'history'
         verbose_name_plural = 'histories'
+        
+class PreferedGenre(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    genre = models.CharField(max_length=100) # genreId
+    search_count = models.IntegerField(default=0)
+    
+    class Meta:
+        db_table = 'prefered_genre'
+        verbose_name = 'prefered_genre'
+        verbose_name_plural = 'prefered_genres'
