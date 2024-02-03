@@ -15,8 +15,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+admin.site.site_header = 'BitnBuild Admin Portal'
+admin.site.site_title = 'Admin Portal'
+admin.site.index_title = 'Welcome to BitNBuild Portal'
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', include('user.urls', namespace='users')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # new
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
