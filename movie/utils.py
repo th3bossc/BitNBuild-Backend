@@ -16,6 +16,7 @@ def get_top_movies(api_key: str, genres: List[str]) -> dict:
     top_movies_by_genre = {}
     for genre in genres:
         url = f'https://api.themoviedb.org/3/discover/movie'
+        print(genre)
         params = {
             'api_key': api_key,
             'with_genres': get_gid(api_key, genre),
@@ -23,24 +24,26 @@ def get_top_movies(api_key: str, genres: List[str]) -> dict:
             'page': 1,
             'language': 'en-US',
         }
+
         response = requests.get(url, params=params)
+        print(response)
         if response.status_code == 200:
             movies = response.json().get('results', [])[:10]
             top_movies_by_genre[genre] = movies
         else:
             top_movies_by_genre[genre] = {'error': f'Failed to fetch data for genre: {genre}'}
-
+    print(top_movies_by_genre)
     return top_movies_by_genre
 
 def get_gid(api_key: str, genre_name: str) -> int:
     url = f'https://api.themoviedb.org/3/genre/movie/list'
     params = {'api_key': api_key, 'language': 'en-US'}
     response = requests.get(url, params=params)
-
     if response.status_code == 200:
         genres = response.json().get('genres', [])
+        print(genres)
         for genre in genres:
             if genre['name'] == genre_name:
+                print(genre['name'], genre['id'])
                 return genre['id']
-
     return -1
