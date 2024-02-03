@@ -7,15 +7,18 @@ from .serializers import MovieSerializer
 from .models import Movie
 import requests
 from .utils import get_top_movies
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 class MovieSearchView(APIView):
     def get(self, request, query):
         if not query:
             return Response({'error': 'Please provide a query parameter'}, status=status.HTTP_400_BAD_REQUEST)
 
-        api_key = 'd75594ae2460bc105fa1ebbf86900cfb'
-        url = f'https://api.themoviedb.org/3/search/movie'
-        params = {'api_key': api_key, 'query': query}
+        url = os.environ.get('URL') + '/search/movie'
+        params = {'api_key': os.environ.get('API_KEY'), 'query': query}
         response = requests.get(url, params=params)
 
         if response.status_code == 200:
@@ -34,8 +37,8 @@ class GenreSearchView(APIView):
         if not genre:
             return Response({'error': 'Please provide a genre in the request data'}, status=status.HTTP_400_BAD_REQUEST)
 
-        api_key = 'your_tmdb_api_key'
+        url = os.environ.get('URL') + '/discover/movie'
+        api_key = os.environ.get('API_KEY')
         genres_to_search = [genre]
         top_movies = get_top_movies(api_key, genres_to_search)
-        print(top_movies)
         return Response(top_movies.get(genre, []))
