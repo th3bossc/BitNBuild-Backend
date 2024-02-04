@@ -12,6 +12,8 @@
 
 - SELECT BY GENRE   GET
 
+- POPULAR MOVIES    GET
+- UPCOMING MOVIES   GET
 
 
 ## Authors
