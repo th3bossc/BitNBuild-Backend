@@ -28,7 +28,7 @@ class MovieSerializer(serializers.Serializer):
     poster_path = serializers.CharField(max_length=100)
     genres = serializers.ListField(child=GenreSerializer())
     popularity = serializers.FloatField()
-    release_date = serializers.DateField()
+    release_date = serializers.DateField(format='%Y-%m-%d', required=False)
     overview = serializers.CharField(max_length=1000)
     
     
