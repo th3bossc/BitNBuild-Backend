@@ -26,6 +26,7 @@ admin.site.index_title = 'Welcome to BitNBuild Portal'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls', namespace='users')),
+    path('movie/', include('movie.urls', namespace='movies')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), # new
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
