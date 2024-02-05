@@ -10,6 +10,7 @@ import Error from "./components/Error";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CreateMovie from './components/VerifyUser';
+import User from './User';
 
 const App = () =>
 {
@@ -23,6 +24,7 @@ const App = () =>
                     <Route path="addmovie" element={<CreateMovie />} />
                     <Route path="deletemovie" element={<DeleteMovie />} />
                     <Route path="search" element={<Search />} />
+                    <Route path="user" element={<User />} />
                     <Route path="*" element={<Error />}/>
                 </Route>
             </Routes>

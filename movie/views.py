@@ -3,7 +3,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import MovieSerializer
+# from .serializers import MovieSerializer
+from user.serializers import MovieSerializer
 from .models import Movie
 import requests
 from .utils import get_top_movies
@@ -51,12 +52,12 @@ class LatestMoviesView(APIView):
         params = {'api_key': api_key, 'language': 'en-US', 'page': 1}
         
         response = requests.get(url, params=params)
-        print(response.json())
+        # print(response.json())
 
         if response.status_code == 200:
             data = response.json().get('results', [])
             serializer = MovieSerializer(data=data, many=True)
-            print(data)
+            # print(data)
             if serializer.is_valid():
                 return Response(serializer.data)
             else:

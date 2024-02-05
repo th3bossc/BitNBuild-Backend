@@ -260,9 +260,19 @@ const Home = (props)=> {
     }, []);
 
     const searchMovies = async (title) => {
-        const response = await fetch(`${API}&s=${title}`);
-        const data = await response.json();
+        let response = await fetch(`${API}&s=${title}`);
+        let data = await response.json();
         setMovies(data.Search);
+
+        // response = await fetch('http://127.0.0.1:8000/movie/popular', {
+        //     method: 'GET',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     mode: 'cors',
+        // })
+        // data = await response.json();
+        // console.log(data)
     };
 
     if(topRated.length === 0)
